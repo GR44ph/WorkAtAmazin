@@ -26,16 +26,12 @@ public class XRHandController : MonoBehaviour
     private float triggerValue;
     private float gripValue;
     private float thumbValue;
-
-    // Start is called before the first frame update
     void Start() {
         animator = GetComponent<Animator>();
         inputDevice = GetInputDevice();
         inputInteractor = gameObject.GetComponentInParent<XRRayInteractor>() as XRRayInteractor;
         moveProvider = GameObject.Find("Locomotion System").GetComponent<ActionBasedContinuousMoveProvider>() as ActionBasedContinuousMoveProvider;
     }
-
-    // Update is called once per frame
     void Update()  {
         AnimateHand();
         distanceToSelectedTarget = Vector3.Distance(inputInteractor.selectTarget.gameObject.transform.position, inputInteractor.gameObject.transform.position);
@@ -73,7 +69,7 @@ public class XRHandController : MonoBehaviour
         }
         thumbValue = Mathf.Clamp(thumbValue, 0, 1);
         if (inputInteractor.selectTarget == null) {
-            moveProvider.moveSpeed = 1;
+            moveProvider.moveSpeed = 2;
             gameObject.transform.position = inputInteractor.transform.position;
             animator.SetFloat(typeOfHand + "Grab", 0);
             animator.SetFloat("Point", 0);
